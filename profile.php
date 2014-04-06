@@ -1,4 +1,17 @@
 ﻿<?php
+
+	if(isset($_POST["login"]) || isset($_POST["password"]))
+		fromAutorization();
+	else if(isset($_GET["id"]))
+		inProfile();
+	else
+	{
+		echo "Ошибка 404";
+		exit();
+	}
+
+function fromAutorization()
+{
 	//Проверка на пустые параметры
 	$incorrectData = false;
 	if(isset($_POST["login"]) && empty($_POST["login"]))
@@ -19,7 +32,7 @@
 	}
 	
 	$Users;
-	$usersRead = file("./users.txt", FILE_IGNORE_NEW_LINES);
+	$usersRead = file("./users.txt", FILE_IGNORE_NEW_LINES); //РЕШИТЬ ВОПРОС С КОДИРОВКОЙ users.txt ANSI
 	if($usersRead == false)
 	{
 		echo "Не удалось открыть файл users.txt";
@@ -28,8 +41,9 @@
 	
 	foreach($usersRead as $line)
 	{
+		$line = iconv("CP1251", "UTF-8", $line); 
 		$logAndPass = explode(' ', $line);
-		$Users[] = Array("login" => $logAndPass[0], "password" => $logAndPass[1]);
+		$Users[] = Array("login" => $logAndPass[0], "password" => $logAndPass[1], "nickName" => $logAndPass[2], "id" => $logAndPass[3]);
 	}
 	
 	$user;
@@ -42,14 +56,25 @@
 			$user = $sUser;
 		}
 	}
-	
 	if($isSearch)
 	{
 		if(strcmp($user["password"], $_POST["password"]) === 0)
-			echo "Пользователь ".$user["login"]." авторизирован.";
+		{
+			if(strcmp($user["nickName"], "None") == 0)
+				echo "Пользователь ".$user["login"]." авторизирован.";
+			else
+				echo "Пользователь ".$user["nickName"]." авторизирован.";
+		}
 		else
 			echo "Введен неверный пароль";
 	}
 	else
 		echo "Пользователь ".$_POST["login"]." не зарегистирован";
+	echo "<br/><br/><br/><br/>Странийа профайла пользователя находится на стадии разработки.";
+}
+
+function inProfile()
+{
+}
+	
 ?>

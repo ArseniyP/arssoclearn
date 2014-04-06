@@ -1,2 +1,3 @@
-admin password
-user1 pass1
+admin password Администратор 1
+user1 pass1 ТестовыйПользователь1 2
+Arseniy 123 None 3
