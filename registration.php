@@ -2,7 +2,7 @@
    "http://www.w3.org/TR/html4/loose.dtd">
  <!-- Для корректного использования тега font-->
 
-<h3 align="center">Страница регистации</h3>
+<h3 align="center">Страница регистрации</h3>
 <form method='post' action='./regResult.php'>
 	<table>
 		<tr>

@@ -41,7 +41,8 @@ function fromAutorization()
 	
 	foreach($usersRead as $line)
 	{
-		$line = iconv("CP1251", "UTF-8", $line); 
+		//$line = iconv("CP1251", "UTF-8", $line); //Баг пофиксен изменением кодировки файла users.txt ANSI->UTF8
+		//На всякий случай аналогичное проделал с newID.txt
 		$logAndPass = explode(' ', $line);
 		$Users[] = Array("login" => $logAndPass[0], "password" => $logAndPass[1], "nickName" => $logAndPass[2], "id" => $logAndPass[3]);
 	}
@@ -66,10 +67,16 @@ function fromAutorization()
 				echo "Пользователь ".$user["nickName"]." авторизирован.";
 		}
 		else
+		{
 			echo "Введен неверный пароль";
+			exit();
+		}
 	}
 	else
-		echo "Пользователь ".$_POST["login"]." не зарегистирован";
+	{
+		echo "Пользователь ".$_POST['login']." не зарегистирован";
+		exit();
+	}
 	echo "<br/><br/><br/><br/>Странийа профайла пользователя находится на стадии разработки.";
 }
 
