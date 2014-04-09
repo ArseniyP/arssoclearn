@@ -46,17 +46,20 @@ function fromAutorization()
 		$logAndPass = explode(' ', $line);
 		$Users[] = Array("login" => $logAndPass[0], "password" => $logAndPass[1], "nickName" => $logAndPass[2], "id" => $logAndPass[3]);
 	}
-	
+
+
 	$user;
 	$isSearch = false;
 	foreach($Users as $sUser)
 	{
-		if(strcmp($sUser["login"], $_POST["login"]) === 0)
+		if(strcmp($sUser["login"], $_POST["login"]) === 0) //БАГ где-то ТУТ!
 		{
 			$isSearch = true;
 			$user = $sUser;
+			break;
 		}
 	}
+	
 	if($isSearch)
 	{
 		if(strcmp($user["password"], $_POST["password"]) === 0)
