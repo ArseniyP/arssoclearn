@@ -1,5 +1,14 @@
-﻿<a href="./users.txt">Просмотреть список зарегистрированных пользователей(тестовая версия)</a><br/>
-<form method='post' action='./profile.php'>
+﻿<?php
+	//Удаление кук
+	if(isset($_GET["clear"]) && ($_GET["clear"] == true))
+	{
+		setcookie("id");
+		setcookie("password");
+		setcookie("timeCreate");
+	}
+?>
+<a href="./users.txt">Просмотреть список зарегистрированных пользователей(тестовая версия)</a><br/>
+<form method='post' action='./authorization.php'>
 	<table>
 		<tr>
 			<td>Логин(ник)</td>
