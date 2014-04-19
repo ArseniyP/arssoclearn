@@ -1,18 +1,27 @@
 ﻿<?php
+	//echo "Страница профайла<br>"; exit;
+	
 	if(isset($_COOKIE["timeCreate"]) && !empty($_COOKIE["timeCreate"]))
 	{
 		$delta = time() - $_COOKIE["timeCreate"];
 		if($delta > 60)
 		{
-			header("Location: index.php?clear=true");
-			echo "header Location: index.php отработал";
+			echo "<script type='text/javascript'>
+				window.location = './timeOut.php'
+				</script>";
+			exit();
 		}
 	}
 	else
-		header("Location: index.php"); //Пользователь не авторизирован
+	{
+		echo "<script type='text/javascript'>
+				window.location = './index.php'
+				</script>"; //Пользователь не авторизирован
+		exit();
+	}
 		
 	echo "Страница может быть закеширована вашим браузером<br>";
-	echo "Пожалуйста, обновите(F5) страницу для перепроверки<br><br>";
+	echo "Пожалуйста, обновите (F5) страницу для перепроверки<br><br>";
 		
 	include("./users.php");
 	
@@ -35,7 +44,7 @@
 	
 	echo "<br><br><br><br><br><br>";
 	echo "------------------------------------------------------------<br>";
-	echo "Сессия длится $delta сек (обновляем смами F5).<br>";
+	echo "На момент загрузки страницы была $delta секунда сессии (обновляем сами F5).<br>";
 	echo "Сессия действительна только 1 мин.<br>";  
 ?>
 	<form method='post' action='./index.php?clear=true'>

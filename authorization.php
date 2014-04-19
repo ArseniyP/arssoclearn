@@ -1,5 +1,5 @@
-<?php 
-	//Проверка на пустые параметры
+п»ї<?php 
+	//РџСЂРѕРІРµСЂРєР° РЅР° РїСѓСЃС‚С‹Рµ РїР°СЂР°РјРµС‚СЂС‹
 	
 	$correctLogin = true;
 	$correctPassword = true;
@@ -15,23 +15,28 @@
 	{
 		include("users.php");
 		$user = getUser("login", $_POST["login"]);
-		//ЕСЛИ КУКА С ТАКИМ NAME ЕСТЬ, ТО ОНА НЕ ПЕРЕЗАПИСЫВАЕТСЯ, А ДОБАВЛЯЕТСЯ НОВАЯ С ТАКИМ-ЖЕ ИМЕНЕМ!
-		setcookie("id", $user["id"], time()+60);//Куки живут 60 сек
-		setcookie("password", $user[password], time()+60);
-		setcookie("timeCreate", time(), time()+100); //Живет 1 мин 40 сек 
-		header("Location: ./profile.php?id=$user[id]");
+		//Р•РЎР›Р РљРЈРљРђ РЎ РўРђРљРРњ NAME Р•РЎРўР¬, РўРћ РћРќРђ РќР• РџР•Р Р•Р—РђРџРРЎР«Р’РђР•РўРЎРЇ, Рђ Р”РћР‘РђР’Р›РЇР•РўРЎРЇ РќРћР’РђРЇ РЎ РўРђРљРРњ-Р–Р• РРњР•РќР•Рњ!
+		setcookie("id", $user["id"], time()+60, "/");//РљСѓРєРё Р¶РёРІСѓС‚ 60 СЃРµРє
+		setcookie("password", $user[password], time()+60, "/");
+		setcookie("timeCreate", time(), time()+100, "/"); //Р–РёРІРµС‚ 1 РјРёРЅ 40 СЃРµРє
+		echo "<script type='text/javascript'>
+				window.location = './profile.php?id=$user[id]'
+				</script>";
+		exit();		
 	}
 	
 	if(!$correctLogin)
-		echo "Не введен логин<br/>";
+		echo "РќРµ РІРІРµРґРµРЅ Р»РѕРіРёРЅ<br/>";
 	if(!$correctPassword)
-		echo "Не введен пароль<br/>";
+		echo "РќРµ РІРІРµРґРµРЅ РїР°СЂРѕР»СЊ<br/>";
 	
-	if($incorrectData)
+	if(!$correctLogin || !$correctPassword)
 	{
-		echo "<a href='./index.php'>Повторить вход</a>";
+		echo "<a href='./index.php'>РџРѕРІС‚РѕСЂРёС‚СЊ РІС…РѕРґ</a>";
 		exit();
 	}
-	
-	header("Location: ./profile.php?id=$user[id]");
+	else
+		echo "<script type='text/javascript'>
+				window.location = './profile.php?id=$user[id]'
+			</script>";
 ?>

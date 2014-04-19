@@ -1,10 +1,9 @@
 ﻿<?php
-	//Удаление кук
-	if(isset($_GET["clear"]) && ($_GET["clear"] == true))
+	if(isset($_COOKIE["id"]) && !empty($_COOKIE["id"]))
 	{
-		setcookie("id");
-		setcookie("password");
-		setcookie("timeCreate");
+		echo "<script type='text/javascript'>
+				window.location = './profile.php?id=$_COOKIE[id]'
+				</script>";
 	}
 ?>
 <a href="./users.txt">Просмотреть список зарегистрированных пользователей(тестовая версия)</a><br/>
