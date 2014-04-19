@@ -1,5 +1,10 @@
 ﻿<?php
-	if(isset($_COOKIE["id"]) && !empty($_COOKIE["id"]))
+	if(isset($_GET["clear"]) && $_GET["clear"])
+	{
+		setcookie("id");
+		setcookie("password");
+		setcookie("timeCreate");
+	}else if(isset($_COOKIE["id"]) && !empty($_COOKIE["id"]))
 	{
 		echo "<script type='text/javascript'>
 				window.location = './profile.php?id=$_COOKIE[id]'
